@@ -18,4 +18,7 @@ will be added.
 
 More functions for handling files will be added as needed.
 
+Part of the [elvysh][2] project.
+
 [1]: https://github.com/shlevy/elvysh-main
+[2]: https://github.com/shlevy/elvysh-project-documentation
