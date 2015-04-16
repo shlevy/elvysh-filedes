@@ -54,8 +54,8 @@ dataview partially_initialized_array ( t: t@ype
 fn read { fd: nat } { buf: addr } { fill, total: nat | fill <= total }
   ( ev: !errno_v ( free ) >> neg1_errno ( res )
   , fdprf: !readable_filedes ( fd )
-  , !partially_initialized_array_v ( byte, fill, total, buf ) >>
-      partially_initialized_array_v ( byte, max ( fill, res ), total, buf )
+  , !partially_initialized_array ( byte, fill, total, buf ) >>
+      partially_initialized_array ( byte, max ( fill, res ), total, buf )
   | fd: int ( fd )
   , buf: ptr buf
   , total: size_t total
