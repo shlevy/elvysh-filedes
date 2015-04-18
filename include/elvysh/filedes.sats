@@ -1,4 +1,5 @@
 staload "elvysh/errno.sats"
+staload "elvysh/partially-initialized-array.sats"
 
 (* Represents whether a file descriptor is readable *)
 datasort readable_property =
@@ -22,28 +23,6 @@ fn close { fd: nat } ( ev: !errno_v ( free ) >> neg1_errno ( res )
 
 (* A readable file descriptor *)
 viewdef readable_filedes ( i: int ) = filedes ( i, is_readable )
-
-(* A view representing an array that is partially initialized.
- *
- * Indexed by the type, the number of initialized elements (AKA the fill), the
- * total number of elements, and the address of the array.
- *
- * ctors:
- * partially_initialized_array: Constructed from two contiguous arrays starting
- * at 'buf' and spanning enough memory for 'total' values of type 't', where
- * the first contains 'fill' initialized values and the second's values may be
- * uninitialized
- *)
-dataview partially_initialized_array ( t: t@ype
-                                     , int (* fill *)
-                                     , int (* total *)
-                                     , addr
-                                     ) =
-  | { fill, total: nat | fill <= total } { buf : addr }
-      partially_initialized_array ( t, fill, total, buf ) of
-        ( @[ t ][ fill ] @ buf
-        , @[ t? ][ total - fill ] @ ( buf + fill * sizeof(t) )
-        )
 
 (* Read from a file descriptor
  *

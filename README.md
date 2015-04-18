@@ -11,6 +11,13 @@ corresponding dynamic int when used in functions.
 See [elvysh-main][1] for the recommended way to obtain initial `filedes` views
 for stdio.
 
+Partially initialized arrays
+-----------------------------
+
+This library also defines the `partially_initialized_array` view, which can be
+used to represent a buffer that has been partially initialized and may be
+further initialized by a function like `read`.
+
 Future work
 -----------
 
